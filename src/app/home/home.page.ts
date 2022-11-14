@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WeatherDataService } from '../services/weather-data';
-import { IWeatherCondition, IWeatherData, IWeatherForecast } from '../interfaces/weather-interface';
+import { IWeatherCondition, IWeatherForecast } from '../interfaces/weather-interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -9,16 +9,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  currentWeather: IWeatherCondition;
-  weatherForecastToSort: Array<IWeatherForecast>;
-  weatherForecastToDisplay: Array<IWeatherForecast>;
+  currentWeather: IWeatherCondition = {} as IWeatherCondition;
+  weatherForecastToSort: Array<IWeatherForecast> = [] as IWeatherForecast[];
+  weatherForecastToDisplay: Array<IWeatherForecast> = [] as IWeatherForecast[];
   sortOrder = 'ASC';
   weatherForm: FormGroup;
   isSubmitted = false;
   selectedCity: string;
 
   constructor(private wd: WeatherDataService, public formBuilder: FormBuilder) {
-    //this.getData();
     this.weatherForm = this.formBuilder.group({
       city: ['', [Validators.required, Validators.minLength(2)]],
       country: ['', [Validators.minLength(2)]]
@@ -81,6 +80,8 @@ export class HomePage {
       this.currentWeather = result.current.condition;
       this.weatherForecastToSort = result.forecast.forecastday;
       this.weatherForecastToDisplay = result.forecast.forecastday;
+    }).catch(error => {
+      alert('An error occured with the request!');
     });
   }
 
