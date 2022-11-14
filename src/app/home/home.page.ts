@@ -26,8 +26,6 @@ export class HomePage {
 
 
   // Form submit and city search functions
-
-
   submitForm() {
     this.isSubmitted = true;
     if (!this.weatherForm.valid) {
@@ -43,6 +41,8 @@ export class HomePage {
     this.weatherForm.setValue({ city: '', country: '' });
   }
 
+  // Calls to weatherData and gets cities based on the search params given
+
   triggerCitySearch(city, country) {
     this.wd.citySearch(city).then(result => {
       if (result.length) {
@@ -56,13 +56,19 @@ export class HomePage {
     });
   }
 
+  // Loop through the city results check if the country is given it matches the city's country
+  // When no match use the first item
+
   validateCityWithCountry(cities, country) {
     let validCity = '';
-    for (const city of cities) {
-      if (city.country === country) {
-        validCity = city.name;
+    if (country) {
+      for (const city of cities) {
+        if (city.country === country) {
+          validCity = city.name;
+        }
       }
     }
+
     if (validCity) {
       return validCity;
     } else {
@@ -84,6 +90,8 @@ export class HomePage {
       alert('An error occured with the request!');
     });
   }
+
+  // Sort forecast data based on date key
 
   toggleSort() {
     if (this.sortOrder === 'ASC') {
