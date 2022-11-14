@@ -1,0 +1,32 @@
+.current-weather-wrapper {
+  text-align: center;
+  min-height: 15vh;
+}
+
+.forecast-weather-wrapper {
+  height: 85vh;
+
+  .forecast-item {
+    text-align: center;
+  }
+}
+
+.sort-button {
+  text-align: right;
+}
+
+ion-input {
+  padding: 5px;
+}
+
+form {
+  p {
+    display: none;
+  }
+
+  .error {
+    display: block;
+    color: red;
+  }
+}
+

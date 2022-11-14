@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{selectedCity || 'Search'}}
+    </ion-title>
+    <ion-buttons *ngIf="selectedCity" slot="start">
+      <ion-button (click)="restartFlow()">
+        Restart
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="!currentWeather || !weatherForecastToDisplay">
+    <form [formGroup]="weatherForm" (ngSubmit)="submitForm()" novalidate>
+      <ion-item lines="full">
+        <ion-label position="floating">City *</ion-label>
+        <ion-input type="text" formControlName="city" required></ion-input>
+        <p [class.error]="weatherForm.get('city').invalid && isSubmitted">City field is required</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Country</ion-label>
+        <ion-input type="text" formControlName="country"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="block">Submit</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <div *ngIf="currentWeather && weatherForecastToDisplay" class="weather-data-wrapper">
+    <h1 class="ion-text-center">Today</h1>
+    <ion-card *ngIf="currentWeather" class="current-weather-wrapper">
+      <ion-card-header>
+        <ion-card-title>{{currentWeather.text}}</ion-card-title>
+        <ion-card-subtitle><img [src]="currentWeather.icon"></ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <h1 class="ion-text-center">5 Day Forecast</h1>
+    <div class="forecast-weather-wrapper" *ngIf="weatherForecastToDisplay">
+      <ion-button class="ion-align-self-end" (click)="toggleSort()">ASC/DESC</ion-button>
+      <ion-card *ngFor="let day of weatherForecastToDisplay" class="forecast-item">
+        <ion-card-header>
+          <ion-card-title>{{day.date | date: 'YYYY. MM. dd.'}}</ion-card-title>
+          <ion-card-subtitle>{{day.day.condition.text}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <img [src]="day.day.condition.icon">
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
