@@ -23,10 +23,10 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize all class variables with good value', () => {
-    expect(component.currentWeather).toBeTruthy();
-    expect(component.weatherForecastToDisplay).toBeTruthy();
-    expect(component.weatherForecastToSort).toBeTruthy();
+  it('should initialize all class variables with empty value', () => {
+    expect(component.currentWeather).toBeFalsy();
+    expect(component.weatherForecastToDisplay).toBeFalsy();
+    expect(component.weatherForecastToSort).toBeFalsy();
   });
 
   it('should update and reset form values', fakeAsync(() => {

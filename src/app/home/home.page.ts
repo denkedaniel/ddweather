@@ -9,9 +9,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  currentWeather: IWeatherCondition = {} as IWeatherCondition;
-  weatherForecastToSort: Array<IWeatherForecast> = [] as IWeatherForecast[];
-  weatherForecastToDisplay: Array<IWeatherForecast> = [] as IWeatherForecast[];
+  currentWeather: IWeatherCondition;
+  weatherForecastToSort: Array<IWeatherForecast>;
+  weatherForecastToDisplay: Array<IWeatherForecast>;
   sortOrder = 'ASC';
   weatherForm: FormGroup;
   isSubmitted = false;
@@ -20,7 +20,7 @@ export class HomePage {
   constructor(private wd: WeatherDataService, public formBuilder: FormBuilder) {
     this.weatherForm = this.formBuilder.group({
       city: ['', [Validators.required, Validators.minLength(2)]],
-      country: ['', [Validators.minLength(2)]]
+      country: ['']
     });
   }
 
