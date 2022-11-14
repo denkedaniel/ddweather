@@ -8,6 +8,11 @@
         Restart
       </ion-button>
     </ion-buttons>
+    <ion-buttons *ngIf="selectedCity" slot="end">
+      <ion-button (click)="toggleSort()">
+        Sorted by {{sortOrder}}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -40,7 +45,6 @@
     </ion-card>
     <h1 class="ion-text-center">5 Day Forecast</h1>
     <div class="forecast-weather-wrapper" *ngIf="weatherForecastToDisplay">
-      <ion-button class="ion-align-self-end" (click)="toggleSort()">ASC/DESC</ion-button>
       <ion-card *ngFor="let day of weatherForecastToDisplay" class="forecast-item">
         <ion-card-header>
           <ion-card-title>{{day.date | date: 'YYYY. MM. dd.'}}</ion-card-title>
